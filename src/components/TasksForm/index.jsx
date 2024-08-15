@@ -1,4 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { TASKS_VALIDATION_SCHEMA } from '../../utils/validationSchemas';
 
 function TasksForm () {
   const initialValues = {
@@ -13,7 +14,11 @@ function TasksForm () {
   return (
     <section>
       <h2>TasksForm</h2>
-      <Formik initialValues={initialValues} onSubmit={submitHandler}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={submitHandler}
+        validationSchema={TASKS_VALIDATION_SCHEMA}
+      >
         <Form>
           <Field
             type='text'
