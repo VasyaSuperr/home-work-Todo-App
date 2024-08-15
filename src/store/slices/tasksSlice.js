@@ -17,9 +17,19 @@ const initialState = {
 const tasksSlice = createSlice({
   initialState,
   name: 'tasks',
-  reducers: {},
+  reducers: {
+    removeTask: (state, { payload }) => {
+      const foundTaskIndex = state.tasks.findIndex(c => c.id === payload);
+
+      if (foundTaskIndex !== -1) {
+        state.tasks.splice(foundTaskIndex, 1);
+      }
+    },
+  },
 });
 
-const { reducer } = tasksSlice;
+const { reducer, actions } = tasksSlice;
+
+export const { removeTask } = actions;
 
 export default reducer;
