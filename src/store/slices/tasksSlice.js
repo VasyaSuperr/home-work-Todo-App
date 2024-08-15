@@ -20,16 +20,21 @@ const tasksSlice = createSlice({
   reducers: {
     removeTask: (state, { payload }) => {
       const foundTaskIndex = state.tasks.findIndex(c => c.id === payload);
-
       if (foundTaskIndex !== -1) {
         state.tasks.splice(foundTaskIndex, 1);
       }
+    },
+    createTask: (state, { payload }) => {
+      state.tasks.push({
+        ...payload,
+        id: uuidv4(),
+      });
     },
   },
 });
 
 const { reducer, actions } = tasksSlice;
 
-export const { removeTask } = actions;
+export const { removeTask, createTask } = actions;
 
 export default reducer;

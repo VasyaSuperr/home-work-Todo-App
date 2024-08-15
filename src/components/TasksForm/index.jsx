@@ -1,13 +1,15 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { connect } from 'react-redux';
 import { TASKS_VALIDATION_SCHEMA } from '../../utils/validationSchemas';
+import { createTask } from './../../store/slices/tasksSlice';
 
-function TasksForm () {
+function TasksForm ({ create }) {
   const initialValues = {
-    task: '',
+    tasksInfo: '',
   };
 
   const submitHandler = (value, { resetForm }) => {
-    console.log(value);
+    create(value);
     resetForm();
   };
 
@@ -22,15 +24,19 @@ function TasksForm () {
         <Form>
           <Field
             type='text'
-            name='task'
+            name='tasksInfo'
             placeholder='Create a new todo...'
             autoFocus
           />
-          <ErrorMessage name='task' component='div' />
+          <ErrorMessage name='tasksInfo' component='div' />
         </Form>
       </Formik>
     </section>
   );
 }
 
-export default TasksForm;
+const mapDispatchToProps = dispatch => ({
+  create: value => dispatch(createTask(value)),
+});
+
+export default connect(null, mapDispatchToProps)(TasksForm);
